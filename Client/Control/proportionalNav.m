@@ -49,7 +49,6 @@ while(~terminate)		    % while terminate == false, continue.
 	% xpd, ypd are the velocities of the pursuer on the x and y axes.
     % xed, yed are the velocities of the evader on the x and y axes.
     
-    % ------ INSERT YOUR CODE HERE ------
     
     xpd = Vp * cos(psip * d2r);
     ypd = Vp * sin(psip * d2r);
@@ -62,7 +61,6 @@ while(~terminate)		    % while terminate == false, continue.
 	% Now calculate the closing velocity (Vc).
     % Use Rd, Vc as variable names. where, Rd is the derivative of R.
 	
-    % ------ INSERT YOUR CODE HERE ------
     
     Rd = ((xe-xp) * (xed-xpd) + (ye-yp) * (yed-ypd)) / R;
     Vc = -Rd;
@@ -73,7 +71,6 @@ while(~terminate)		    % while terminate == false, continue.
     % we can use a coordinate transformation matrix Cwp to move from world to pursuer axes.
     % Now calculate the matrix Cwp.
 	    
-    % ------ INSERT YOUR CODE HERE ------
     Cwp = [cos(psip * d2r), sin(psip * d2r); -sin(psip * d2r), cos(psip * d2r)];
     
 	% Next, calculate the relative position and velocities in World coordinates
@@ -89,7 +86,6 @@ while(~terminate)		    % while terminate == false, continue.
 	% Use lam, lamd as variable names.
     % If the tangent function is to be used, please use the matlab function 'atan2' rather than 'atan'.
     
-    % ------ INSERT YOUR CODE HERE ------
     
     lam = atan2(xrp(2),xrp(1));
     lamd = (xrdp(2)*xrp(1)-xrdp(1)*xrp(2))/(xrp(1)^2/(cos(lam)^2));
@@ -102,7 +98,6 @@ while(~terminate)		    % while terminate == false, continue.
 	% We can now integrate the equations of motion for both vehicles,
 	% Use xp, yp, xe, ye, psip as variable names.
     
-    % ------ INSERT YOUR CODE HERE ------
     
     xp = xp + dt * xpd;
     yp = yp + dt * ypd;

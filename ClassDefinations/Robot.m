@@ -13,10 +13,12 @@ classdef Robot
         weight = 0; % (kg)
         kickableAreaRadius = 0; % (mm)
         maxMoveAccleration = 0; % (mm/s^2)
+        maxMoveVelocity = 0;
         maxTurnRate = 0; % (deg/s)
         maxKickPower = 0; % Force (N)
         %% Robot Movement
         currentPose = [0, 0, 0]; % [X, Y, Angle]
+        currentVelocity = 0; % (mm/s)
         destinationPose = [0, 0, 0]; % [X, Y, Angle]
         accleration = 0; % (mm/s^2) (Negative | Positive values)
         headingRate = 0; % (deg/s) (Negative | Positive values)
@@ -24,7 +26,7 @@ classdef Robot
         kick = false; % true | false
         kickPower = 0; % [0 - 100%] of maxKickPower
         %% Feedback
-        isBallKickable = flase; % true | false
+        isBallKickable = false; % true | false
     end
     
     methods
