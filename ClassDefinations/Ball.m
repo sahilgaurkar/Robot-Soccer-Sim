@@ -14,7 +14,7 @@ classdef Ball
         currentAccleration = 0;
         currentSpeed = 0;
         currentPose = [0, 0, 0];
-        lastCommandBy = ['None', 'None'];
+        lastCommandBy = {'None', 'None'}; %teamName, robotName
         isFoul = false;
 
         %% Game State
@@ -24,14 +24,14 @@ classdef Ball
         % 2 = freeKick
         % 3 = cornerKick
         % 4 = goalieFreeKick
-        % 5 = kickIn
+        % 5 = kickIn.
         % 6 = penalty
 
     end
     
     methods
         function obj = Ball(mass, radius)
-            %BALL Construct an instance of this class
+            %   BALL Construct an instance of this class
             %   Detailed explanation goes here
             obj.mass = mass;
             obj.radius = radius;
