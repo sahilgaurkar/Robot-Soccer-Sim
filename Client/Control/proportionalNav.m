@@ -6,7 +6,7 @@
 % Vp is the speed of the pursuer.
 xp = 0;
 yp = 0;
-psip = 270;
+psip = 90;
 Vp = 50;
 % Evader
 % xe, ye are the coordinates of the evader.
@@ -15,7 +15,7 @@ Vp = 50;
 xe = -100;
 ye = -500;
 psie = 90;
-Ve = 10;
+Ve = 1;
 % Simulation Parameters
 d2r = pi / 180.0;
 dt = 0.01;
