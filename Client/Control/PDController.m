@@ -8,7 +8,7 @@ bot.accleration = 0;
 bot.headingRate = 0;
 bot.currentVelocity = 0;
 
-bot.maxMoveAccleration = 300;
+bot.maxMoveAccleration = 100;
 bot.maxMoveVelocity = 300;
 bot.maxTurnRate = 45;
 
