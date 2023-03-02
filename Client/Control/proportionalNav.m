@@ -7,15 +7,15 @@
 xp = 0;
 yp = 0;
 psip = 90;
-Vp = 5;
+Vp = 50;
 % Evader
 % xe, ye are the coordinates of the evader.
 % psip is the yaw angle of the evader.
 % Ve is the speed of the evader.
-xe = 100;
-ye = 50;
-psie = 100;
-Ve = 2;
+xe = -100;
+ye = -500;
+psie = 90;
+Ve = 1;
 % Simulation Parameters
 d2r = pi / 180.0;
 dt = 0.01;
@@ -39,7 +39,7 @@ while(~terminate)		    % while terminate == false, continue.
     end
     t = t+dt;
 	% Check the termination condition
-    if(R < 10 || t > 10)	    % Close to the evader?
+    if(R < 10 || t > 100)	    % Close to the evader?
 		if(Rd > 0)		    % Flown past the evader?
 			terminate = true;
 		end
