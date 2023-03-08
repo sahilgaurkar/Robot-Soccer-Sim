@@ -11,7 +11,7 @@ classdef Robot
         %% Properties
         bodyRadius = 0; % (mm)
         weight = 0; % (kg)
-        kickableAreaRadius = 0; % (mm)
+        kickableAreaRadiu = 0; % (mm)
         maxMoveAccleration = 0; % (mm/s^2)
         maxMoveVelocity = 0;
         maxTurnRate = 0; % (deg/s)
@@ -69,11 +69,11 @@ classdef Robot
 
         end
 
-        function obj = kickBall(obj, kickPower)
+        function obj = kickBall(kickState, kickPower)
             % moveTo is used to set destinationPose;
             %   Detailed explanation goes here
         
-            obj.kick = true;
+            obj.kick = kickState;
             obj.kickPower = kickPower;
             
         end
