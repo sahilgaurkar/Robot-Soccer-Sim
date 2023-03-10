@@ -4,9 +4,9 @@ classdef Ball
     
     properties
         %% Property
-        mass = 0;
-        fricCoeff = 0;
-        radius = 0;
+        mass = 0.205; % kg
+        fricCoeff = 0.1;
+        radius = 0.08; % meters 
         %% Command
         appliedForce = 0;
         heading = 0;
