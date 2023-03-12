@@ -77,7 +77,7 @@ while(bot.currentPose ~= bot.destinationPose)
         end
     end
 
-    bot
+    bot;
 
 
 
