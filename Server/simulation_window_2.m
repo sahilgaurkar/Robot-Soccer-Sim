@@ -49,15 +49,26 @@ classdef simulation_window_2 < matlab.System
             end
         end
 
-        function stepImpl(obj, robot_coordinates, ball_coordinates)
+        function stepImpl(obj, robot_coordinates, ball_coordinates, scoreTeam1, scoreTeam2)
             % Implement algorithm. Calculate y as a function of input u and
             % discrete states.
             clf;
             plotSoccerField(obj);
 
+            %plot score board
+            a = int8(scoreTeam1);
+            b = int8(scoreTeam2);
+            formatSpec='Score: %d : %d';
+            c=sprintf(formatSpec,a,b);
+            txt = c;
+            text(5200,7500,txt);
+
             theta = linspace(0, 2*pi, 360);   
             robot_radius = 100;
             
+            % plot ball
+             plot(ball_coordinates(1), ball_coordinates(2), 'o','MarkerSize', 20, 'MarkerFaceColor', 'w', 'MarkerEdgeColor', 'w');
+
             for i=1:size(robot_coordinates, 1)
                 robot = robot_coordinates(i,:);  
                     robot_x = robot(1);
