@@ -66,10 +66,10 @@ classdef simulation_window < matlab.System
             plotSoccerField(obj);
 
             %plot score board
-            a = int8(scoreTeam1);
+            kick = int8(scoreTeam1);
             b = int8(scoreTeam2);
             formatSpec='Score: %d : %d';
-            c=sprintf(formatSpec,a,b);
+            c=sprintf(formatSpec,kick,b);
             txt = c;
             text(5200,7500,txt);
 
