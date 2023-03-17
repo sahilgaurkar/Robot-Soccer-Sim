@@ -1,4 +1,4 @@
-classdef simulation_window_sub < matlab.System
+classdef monitor_sub < matlab.System
     % untitled Add summary here
     %
     % This template includes the minimum set of functions required
