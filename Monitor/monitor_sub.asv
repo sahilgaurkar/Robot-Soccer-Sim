@@ -41,19 +41,19 @@ classdef monitor_sub < matlab.System
     methods (Access = protected)
         function setupImpl(obj)
             % Perform one-time calculations, such as computing constants        
-            obj.pitch_length = pitchParameters(1);
-            obj.pitch_width = pitchParameters(2);
-            obj.centre_circle_diameter = pitchParameters(3);
-            obj.border_strip_width = pitchParameters(4);
+            obj.pitch_length = pitchParameters
+            obj.pitch_width =
+            obj.centre_circle_diameter =
+            obj.border_strip_width =
     
-            obj.goal_area_length = pitchParameters(5);
-            obj.goal_area_width = pitchParameters(6);
+            obj.goal_area_length =
+            obj.goal_area_width =
     
-            obj.penalty_area_length = pitchParameters(7);
-            obj.penalty_area_width = pitchParameters(8);
+            obj.penalty_area_length = 
+            obj.penalty_area_width =
     
-            obj.goal_width = pitchParameters(9);
-            obj.goal_depth = pitchParameters(10);
+            obj.goal_width =
+            obj.goal_depth =
 
 
 
