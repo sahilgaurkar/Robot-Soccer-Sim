@@ -91,6 +91,7 @@ classdef simulation_window_3 < matlab.System
                     % Draw line from center of robot in the direction of the current heading
                     line([robot_x,  robot_x + heading_line_x], [robot_y, robot_y + heading_line_y], 'color', 'b');
             end
+            drawnow;
         end
 
         function resetImpl(obj)
