@@ -41,20 +41,19 @@ classdef monitor_sub < matlab.System
     methods (Access = protected)
         function setupImpl(obj)
             % Perform one-time calculations, such as computing constants        
-            obj.pitch_length = pitchParameters(1);
-            obj.pitch_width = pitchParameters(2);
-            obj.centre_circle_diameter = pitchParameters(3);
-            obj.border_strip_width = pitchParameters(4);
+            obj.pitch_length = 9000;
+            obj.pitch_width = 6000;
+            obj.centre_circle_diameter = 1500;
+            obj.border_strip_width = 1000;
     
-            obj.goal_area_length = pitchParameters(5);
-            obj.goal_area_width = pitchParameters(6);
+            obj.goal_area_length = 1000;
+            obj.goal_area_width = 1000;
     
-            obj.penalty_area_length = pitchParameters(7);
-            obj.penalty_area_width = pitchParameters(8);
+            obj.penalty_area_length = 1000;
+            obj.penalty_area_width = 3000;
     
-            obj.goal_width = pitchParameters(9);
-            obj.goal_depth = pitchParameters(10);
-
+            obj.goal_width = 1000;
+            obj.goal_depth = 500;
 
 
 
@@ -69,7 +68,7 @@ classdef monitor_sub < matlab.System
             end
         end
 
-        function stepImpl(obj, robot_coordinates, ball_coordinates, scoreTeam1, scoreTeam2, pitchParameters)
+        function stepImpl(obj, robot_coordinates, ball_coordinates, scoreTeam1, scoreTeam2)
             % Implement algorithm. Calculate y as a function of input u and
             % discrete states.
             clf;
