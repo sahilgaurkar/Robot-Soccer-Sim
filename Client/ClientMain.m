@@ -16,3 +16,5 @@ for idx=1:1:3
 dist(idx) = distToGoal(b(idx,1:2), c(idx,1:2));
 end
 dist
+
+kick = [1;2;0;3;0;1;5];
