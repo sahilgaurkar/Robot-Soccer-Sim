@@ -86,7 +86,7 @@ classdef monitor_sub < matlab.System
             robot_radius = 100;
             
             % plot ball
-             plot(ball_coordinates(1), ball_coordinates(2), 'o','MarkerSize', 20, 'MarkerFaceColor', 'w', 'MarkerEdgeColor', 'w');
+             plot(ball_coordinates(1), ball_coordinates(2), 'o','MarkerSize', 10, 'MarkerFaceColor', 'w', 'MarkerEdgeColor', 'w');
 
             for i=1:size(robot_coordinates, 1)
                 robot = robot_coordinates(i,:);  
@@ -94,7 +94,7 @@ classdef monitor_sub < matlab.System
                     robot_y = robot(2);
                     heading = robot(3);
 
-                    heading_line_length = 1000; % L
+                    heading_line_length = 200; % L
 
                     % equation of circle for representing robot
                     robot_rep_x = robot_radius * cos(theta);
@@ -106,7 +106,9 @@ classdef monitor_sub < matlab.System
                     % Draw circle around current location of robot
                     %plot((robot_rep_x + robot_x), (robot_rep_y + robot_y), 'Color', 'b');
 
-                    plot(robot(1), robot(2), 'o','MarkerSize', 20, 'MarkerFaceColor', 'r', 'MarkerEdgeColor', 'b');
+                    plot(robot(1), robot(2), 'o','MarkerSize', 15, 'MarkerFaceColor', 'r', 'MarkerEdgeColor', 'b');
+                    str = char(48+i);
+                    text(robot(1)-50,robot(2)-100,str)
                     % Draw line from center of robot in the direction of the current heading
                     line([robot_x,  robot_x + heading_line_x], [robot_y, robot_y + heading_line_y], 'color', 'b');
             end
@@ -115,6 +117,7 @@ classdef monitor_sub < matlab.System
 
         function resetImpl(obj)
             % Initialize / reset discrete-state properties
+            %close all;
         end
 
        function plotSoccerField(obj)
@@ -133,7 +136,10 @@ classdef monitor_sub < matlab.System
             hold on;
             
             % plot centre line
-            xline(0, 'LineWidth',5, 'Color','w');
+            %xline(0, 'LineWidth',3, 'Color','w');
+            plot([0 0], ...
+                [(obj.pitch_width/2) -(obj.pitch_width/2)], ...
+                'LineWidth', 3, 'Color', 'w');
             
             hold on;
 
