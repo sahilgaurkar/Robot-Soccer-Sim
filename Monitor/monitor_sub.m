@@ -64,7 +64,7 @@ classdef monitor_sub < matlab.System
 
             figureTag = "RoboCupSoccerSim";
             if isempty(findobj('type','figure','tag',figureTag))
-                figure('Tag',figureTag);
+                figure('Tag',figureTag, 'Position', [450, 200, 900, 600],'Resize','off');
             end
         end
 
@@ -74,19 +74,34 @@ classdef monitor_sub < matlab.System
             clf;
             plotSoccerField(obj);
 
-            %plot score board
+
+
+            % Create a rectangle for the score board
+            rectangle('Position', [-1500, 3330, 3000, 500],  'EdgeColor', 'w', 'LineWidth', 3, 'FaceColor', 'w');
+            
+            % Plot score board
             a = int8(scoreTeam1);
             b = int8(scoreTeam2);
-            formatSpec='Score: %d : %d';
-            c=sprintf(formatSpec,a,b);
-            txt = c;
-            text(0,4300,txt);
+            
+            % Left team score (red)
+            redScoreText = sprintf('%d', a);
+            text(-1000, 3600, redScoreText, 'FontSize', 16, 'FontWeight', 'bold', 'Color', 'r');
+            
+            % Right team score (blue)
+            blueScoreText = sprintf('%d', b);
+            text(750, 3600, blueScoreText, 'FontSize', 16, 'FontWeight', 'bold', 'Color', 'b');
+            
+            % Center colon (black)
+            colonText = ':';
+            text(-40, 3600, colonText, 'FontSize', 16, 'FontWeight', 'bold', 'Color', 'k');
 
-            theta = linspace(0, 2*pi, 360);   
-            robot_radius = 100;
+
+
+%             theta = linspace(0, 2*pi, 360);   
+%             robot_radius = 100;
             
             % plot ball
-             plot(ball_coordinates(1), ball_coordinates(2), 'o','MarkerSize', 20, 'MarkerFaceColor', 'w', 'MarkerEdgeColor', 'w');
+             plot(ball_coordinates(1), ball_coordinates(2), 'o','MarkerSize', 13, 'MarkerFaceColor', 'w', 'MarkerEdgeColor', 'k');
 
             for i=1:size(robot_coordinates, 1)
                 robot = robot_coordinates(i,:);  
@@ -94,11 +109,7 @@ classdef monitor_sub < matlab.System
                     robot_y = robot(2);
                     heading = robot(3);
 
-                    heading_line_length = 1000; % L
-
-                    % equation of circle for representing robot
-                    robot_rep_x = robot_radius * cos(theta);
-                    robot_rep_y = robot_radius * sin(theta);
+                    heading_line_length = 350; % L
                 
                     heading_line_x = cos((heading*pi)/180) * heading_line_length;
                     heading_line_y = sin((heading*pi)/180) * heading_line_length;
@@ -106,9 +117,9 @@ classdef monitor_sub < matlab.System
                     % Draw circle around current location of robot
                     %plot((robot_rep_x + robot_x), (robot_rep_y + robot_y), 'Color', 'b');
 
-                    plot(robot(1), robot(2), 'o','MarkerSize', 20, 'MarkerFaceColor', 'r', 'MarkerEdgeColor', 'b');
+                    plot(robot(1), robot(2), 'o','MarkerSize', 14, 'MarkerFaceColor', 'r', 'MarkerEdgeColor', 'k');
                     % Draw line from center of robot in the direction of the current heading
-                    line([robot_x,  robot_x + heading_line_x], [robot_y, robot_y + heading_line_y], 'color', 'b');
+                    line([robot_x,  robot_x + heading_line_x], [robot_y, robot_y + heading_line_y], 'color', 'k');
             end
             drawnow;
         end
@@ -135,7 +146,7 @@ classdef monitor_sub < matlab.System
             % plot centre line
             xline(0, 'LineWidth',5, 'Color','w');
             
-            hold on;
+%             hold on;
 
             % plot centre circle
             theta = 0:pi/100:2*pi;
@@ -204,3 +215,4 @@ classdef monitor_sub < matlab.System
         end
     end
 end
+
