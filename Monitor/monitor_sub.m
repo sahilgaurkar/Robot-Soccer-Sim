@@ -171,8 +171,12 @@ classdef monitor_sub < matlab.System
             
                 if i <= 4 % First team (red)
                     plot(robot(1), robot(2), 'o','MarkerSize', 12, 'MarkerFaceColor', 'r', 'MarkerEdgeColor', 'k');
+                    str = char(48+i);
+                    text(robot(1)-50,robot(2)-100,str)
                 else % Second team (blue)
                     plot(robot(1), robot(2), 'o','MarkerSize', 12, 'MarkerFaceColor', [0.2 0.6 1], 'MarkerEdgeColor', 'k');
+                    str = char(48+i-4);
+                    text(robot(1)-50,robot(2)-100,str)
                 end
                 
                 % Draw line from center of robot in the direction of the current heading
