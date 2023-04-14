@@ -39,6 +39,20 @@ classdef monitor_sub < matlab.System
     end
 
     methods (Access = protected)
+        function draw_pentagon(center, radius, rotation, face_color)
+            % center
+            % radius
+            % rotation
+            % face_color:
+            % Compute the five corner points of a pentagon
+            angles = (0:4) * (2*pi / 5) + rotation;
+            x = center(1) + radius * cos(angles);
+            y = center(2) + radius * sin(angles);
+        
+            % Use the 'patch' function to draw the pentagon
+            patch(x, y, face_color, 'EdgeColor', 'none');
+        end
+
         function setupImpl(obj)
             % Perform one-time calculations, such as computing constants        
             obj.pitch_length = 9000;
@@ -64,7 +78,7 @@ classdef monitor_sub < matlab.System
 
             figureTag = "RoboCupSoccerSim";
             if isempty(findobj('type','figure','tag',figureTag))
-                figure('Tag',figureTag);
+                figure('Tag',figureTag, 'Position', [450, 200, 900, 600],'Resize','off');
             end
         end
 
@@ -74,50 +88,101 @@ classdef monitor_sub < matlab.System
             clf;
             plotSoccerField(obj);
 
-            %plot score board
+
+
+            % Create a rectangle for the score board
+            rectangle('Position', [-1500, 3330, 3000, 500],  'EdgeColor', 'w', 'LineWidth', 3, 'FaceColor', 'w');
+            
+            % Plot score board
             a = int8(scoreTeam1);
             b = int8(scoreTeam2);
-            formatSpec='Score: %d : %d';
-            c=sprintf(formatSpec,a,b);
-            txt = c;
-            text(0,4300,txt);
+            
+            % Left team score (red)
+            redScoreText = sprintf('%d', a);
+            text(-1000, 3600, redScoreText, 'FontSize', 16, 'FontWeight', 'bold', 'Color', 'r');
+            
+            % Right team score (blue)
+            blueScoreText = sprintf('%d', b);
+            text(750, 3600, blueScoreText, 'FontSize', 16, 'FontWeight', 'bold', 'Color', 'b');
+            
+            % Center colon (black)
+            colonText = ':';
+            text(-40, 3600, colonText, 'FontSize', 16, 'FontWeight', 'bold', 'Color', 'k');
 
-            theta = linspace(0, 2*pi, 360);   
-            robot_radius = 100;
+
+
+%             theta = linspace(0, 2*pi, 360);   
+%             robot_radius = 100;
             
             % plot ball
-             plot(ball_coordinates(1), ball_coordinates(2), 'o','MarkerSize', 10, 'MarkerFaceColor', 'w', 'MarkerEdgeColor', 'w');
+%             plot(ball_coordinates(1), ball_coordinates(2), 'o','MarkerSize', 11, 'MarkerFaceColor', 'w', 'MarkerEdgeColor', 'k');                       
 
+            ball_radius = 100;
+            ball_x = ball_coordinates(1);
+            ball_y = ball_coordinates(2);
+            pentagon_radius = ball_radius * 0.3; % Pentagon radius
+            rotation_offset = pi / 10; % Counter-clockwise rotation angle (radians)
+            
+            % Draw white filled circle for the ball background
+            theta = linspace(0, 2*pi, 100);
+            x = ball_x + ball_radius * cos(theta);
+            y = ball_y + ball_radius * sin(theta);
+            patch(x, y, 'w', 'EdgeColor', 'none');
+            
+            % Draw five black pentagons
+            for i = 1:5
+                angle = (i - 1) * (2*pi / 5);
+                center = [ball_x + ball_radius * 0.65 * cos(angle), ...
+                          ball_y + ball_radius * 0.65 * sin(angle)];
+            
+                % Compute the five corner points of a pentagon
+                angles = (0:4) * (2*pi / 5) + rotation_offset;
+                x = center(1) + pentagon_radius * cos(angles);
+                y = center(2) + pentagon_radius * sin(angles);
+            
+                % Use the 'patch' function to draw the pentagon
+                patch(x, y, 'k', 'EdgeColor', 'none');
+            end
+            
+            % Draw white circle around the pentagons
+            theta = linspace(0, 2*pi, 100);
+            x = ball_x + ball_radius * cos(theta);
+            y = ball_y + ball_radius * sin(theta);
+            plot(x, y, 'w', 'LineWidth', 2);
+            theta = linspace(0, 2*pi, 100);
+            x = ball_x + ball_radius * cos(theta);
+            y = ball_y + ball_radius * sin(theta);
+            plot(x, y, 'k', 'LineWidth', 1);
+            
+            % plot robots.
             for i=1:size(robot_coordinates, 1)
                 robot = robot_coordinates(i,:);  
-                    robot_x = robot(1);
-                    robot_y = robot(2);
-                    heading = robot(3);
-
-                    heading_line_length = 200; % L
-
-                    % equation of circle for representing robot
-                    robot_rep_x = robot_radius * cos(theta);
-                    robot_rep_y = robot_radius * sin(theta);
+                robot_x = robot(1);
+                robot_y = robot(2);
+                heading = robot(3);
+            
+                heading_line_length = 350; % L
+            
+                heading_line_x = cos((heading*pi)/180) * heading_line_length;
+                heading_line_y = sin((heading*pi)/180) * heading_line_length;
+            
+                % Draw circle around current location of robot
+                %plot((robot_rep_x + robot_x), (robot_rep_y + robot_y), 'Color', 'b');
+            
+                if i <= 4 % First team (red)
+                    plot(robot(1), robot(2), 'o','MarkerSize', 12, 'MarkerFaceColor', 'r', 'MarkerEdgeColor', 'k');
+                else % Second team (blue)
+                    plot(robot(1), robot(2), 'o','MarkerSize', 12, 'MarkerFaceColor', [0.2 0.6 1], 'MarkerEdgeColor', 'k');
+                end
                 
-                    heading_line_x = cos((heading*pi)/180) * heading_line_length;
-                    heading_line_y = sin((heading*pi)/180) * heading_line_length;
-                
-                    % Draw circle around current location of robot
-                    %plot((robot_rep_x + robot_x), (robot_rep_y + robot_y), 'Color', 'b');
-
-                    plot(robot(1), robot(2), 'o','MarkerSize', 15, 'MarkerFaceColor', 'r', 'MarkerEdgeColor', 'b');
-                    str = char(48+i);
-                    text(robot(1)-50,robot(2)-100,str)
-                    % Draw line from center of robot in the direction of the current heading
-                    line([robot_x,  robot_x + heading_line_x], [robot_y, robot_y + heading_line_y], 'color', 'b');
+                % Draw line from center of robot in the direction of the current heading
+                line([robot_x,  robot_x + heading_line_x], [robot_y, robot_y + heading_line_y], 'color', 'k');
             end
             drawnow;
-        end
+        end        
 
         function resetImpl(obj)
             % Initialize / reset discrete-state properties
-            %close all;
         end
 
        function plotSoccerField(obj)
@@ -126,22 +191,47 @@ classdef monitor_sub < matlab.System
                 figure('Tag',figureTag);
             end
             
-            % plot field
-            set(gca, 'Color', 'g');
+            % plot field            
+            set(gca, 'Color', [0.4, 0.2, 0.0]);
             field_length = (2*obj.border_strip_width) + obj.pitch_length;
             field_width = (2*obj.border_strip_width) + obj.pitch_width; 
             xlim([-field_length/2 field_length/2]);
             ylim([-field_width/2 field_width/2]);
+            % Add the following code after setting the background color to green 
+            % Define dark and light green
+            dark_green = [0, 0.5, 0];
+            light_green = [0, 0.8, 0];
             
+            % Calculating Football Field Dimensions
+            field_length = obj.pitch_length;
+            field_width = obj.pitch_width;
+            
+            % Choose the number and width of the stripes
+            num_stripes = 10; % Can be adjusted as needed
+            stripe_width = field_length / num_stripes;
+            
+            % Alternately draw light and dark stripes
+            for i = 1:num_stripes
+                x_start = round((i - 1) * stripe_width) - (field_length / 2);
+%                 x_end = round(i * stripe_width) - (field_length / 2);
+        
+                if mod(i, 2) == 0
+                    current_color = light_green;
+                else
+                    current_color = dark_green;
+                end
+                
+                % use'rectangle'function to draw stripes
+                rectangle('Position', [x_start, -(field_width / 2), stripe_width, field_width], ...
+                          'FaceColor', current_color, 'EdgeColor', 'none');
+            end           
             hold on;
             
             % plot centre line
-            %xline(0, 'LineWidth',3, 'Color','w');
-            plot([0 0], ...
-                [(obj.pitch_width/2) -(obj.pitch_width/2)], ...
-                'LineWidth', 3, 'Color', 'w');
+%             xline(0, 'LineWidth',5, 'Color','w');
+            plot([0 0], [-(obj.pitch_width/2) (obj.pitch_width/2)], 'LineWidth', 5, 'Color', 'w');
             
-            hold on;
+%             hold on;
 
             % plot centre circle
             theta = 0:pi/100:2*pi;
