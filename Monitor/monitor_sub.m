@@ -90,8 +90,8 @@ classdef monitor_sub < matlab.System
 
 
 
-            % Create a rectangle for the score board
-            rectangle('Position', [-1500, 3330, 3000, 500],  'EdgeColor', 'w', 'LineWidth', 3, 'FaceColor', 'w');
+             % Create a rectangle for the score board
+            rectangle('Position', [-1500, -3500, 3000, 500],  'EdgeColor', 'w', 'LineWidth', 3, 'FaceColor', 'w');
             
             % Plot score board
             a = int8(scoreTeam1);
@@ -99,11 +99,11 @@ classdef monitor_sub < matlab.System
             
             % Left team score (red)
             redScoreText = sprintf('%d', a);
-            text(-1000, 3600, redScoreText, 'FontSize', 16, 'FontWeight', 'bold', 'Color', 'r');
+            text(-1000, -3200, redScoreText, 'FontSize', 16, 'FontWeight', 'bold', 'Color', 'r');
             
             % Right team score (blue)
             blueScoreText = sprintf('%d', b);
-            text(750, 3600, blueScoreText, 'FontSize', 16, 'FontWeight', 'bold', 'Color', 'b');
+            text(750, -3200, blueScoreText, 'FontSize', 16, 'FontWeight', 'bold', 'Color', 'b');
             
             % Center colon (black)
             colonText = ':';
