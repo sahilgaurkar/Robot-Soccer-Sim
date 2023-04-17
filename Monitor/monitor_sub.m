@@ -107,7 +107,7 @@ classdef monitor_sub < matlab.System
             
             % Center colon (black)
             colonText = ':';
-            text(-40, 3600, colonText, 'FontSize', 16, 'FontWeight', 'bold', 'Color', 'k');
+            text(-40, -3600, colonText, 'FontSize', 16, 'FontWeight', 'bold', 'Color', 'k');
 
 
 
