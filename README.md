@@ -10,3 +10,5 @@ Steps:
 2. Run "Main.m"
 
 Simulation [Video](https://youtu.be/sA7g1_isSL0)
+
+![Screenshot of Simulation](/Demo_Video/Snapshot.png)
